@@ -1,0 +1,22 @@
+{
+    "about_us": "About Us",
+    "contact_us": "Contact Us",
+    "home": "Home",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "product_collection": "Product Collection",
+    "find_us": "Find Us",
+    "see_more": "See More",
+    "new": "New",
+    "search": "Search",
+    "all_products": "All Products",
+
+    "read_more": "Read More",
+    "watched" : "Watched",
+    "order_now": "Order Now",
+    "similar_products": "Similar Products",
+    "category_product": "Category Products",
+    "send": "Send",
+    "testimonials": "Testimonials"
+}
