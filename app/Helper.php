@@ -34,5 +34,15 @@ class Helper
         return 'https://wa.me/'.self::waNumber().'?text='.urlencode('Halo, saya tertarik dengan produk ini ! '.$productLink);
     }
 
+    public static function imageUrl(string $path): string
+    {
+        if(preg_match('/^http/', $path)){
+            return $path;
+        }else{
+            return asset('storage/'.$path);
+        }
+    }
+
+
 
 }

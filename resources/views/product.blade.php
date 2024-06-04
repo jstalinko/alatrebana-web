@@ -11,7 +11,7 @@
       <div class="brand_container layout_padding2">
        <div class="row">
         <div class="col-md-4">
-            <img src="{{$product->image}}" alt="{{$product->name}}" class="img img-responsive img-fluid img-thumbnail">  
+            <img src="{{App\Helper::imageUrl($product->image)}}" alt="{{$product->name}}" class="img img-responsive img-fluid img-thumbnail">  
         </div>
         <div class="col-md-8">
             <h3>
@@ -30,7 +30,7 @@
                 <x-heroicon-m-currency-dollar style="width:20"/> @if($product->price == 0)  Hubungi Kami @else {{App\Helper::harga($product->price)}} @endif
             </h4>
             <p>
-                {{$product->description}}
+                {!! $product->description !!}
             </p>
 
             <br><br>
@@ -58,7 +58,7 @@
               </h5>
             </div>
             <div class="img-box">
-              <img src="{{$pro->image}}" alt="">
+              <img src="{{App\Helper::imageUrl($pro->image)}}" alt="">
             </div>
             <div class="detail-box">
               <h6 class="price">

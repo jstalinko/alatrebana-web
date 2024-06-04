@@ -8,9 +8,10 @@
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Site Metas -->
-    <meta name="keywords" content="{{App\Helper::websetting('slogan')}},{{App\Helper::websetting('title')}},{{App\Helper::websetting('domain')}},{{App\Helper::websetting('address')}}" />
-  <meta name="description" content="{{App\Helper::websetting('title')}} - {{App\Helper::websetting('slogan')}}" />
-  <meta name="author" content="{{App\Helper::websetting('domain')}}" />
+    <meta name="keywords"
+        content="{{ App\Helper::websetting('slogan') }},{{ App\Helper::websetting('title') }},{{ App\Helper::websetting('domain') }},{{ App\Helper::websetting('address') }}" />
+    <meta name="description" content="{{ App\Helper::websetting('title') }} - {{ App\Helper::websetting('slogan') }}" />
+    <meta name="author" content="{{ App\Helper::websetting('domain') }}" />
 
     <title>
         {{ App\Helper::websetting('name') }} - {{ App\Helper::websetting('slogan') }}
@@ -39,15 +40,16 @@
         <header class="header_section">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg custom_nav-container">
-                    <a class="navbar-brand" href="{{url('/')}}">
+                    <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="/images/logo.png" alt="" />
-                        <form method="get" action="/change-lang" >
-                        <select class="form-control" onchange="this.form.submit()" name="lang" >
-                            @foreach (['id', 'en'] as $lang)
-                                <option value="{{ $lang }}" @if ($lang == App::getLocale()) selected @endif>
-                                    {{ $lang }}</option>
-                            @endforeach
-                        </select>
+                        <form method="get" action="/change-lang">
+                            <select class="form-control" onchange="this.form.submit()" name="lang">
+                                @foreach (['id', 'en'] as $lang)
+                                    <option value="{{ $lang }}"
+                                        @if ($lang == App::getLocale()) selected @endif>
+                                        {{ $lang }}</option>
+                                @endforeach
+                            </select>
                         </form>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -59,17 +61,17 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav  ">
                             <li class="nav-item active">
-                                <a class="nav-link" href="{{ url('/') }}">Home <span
+                                <a class="nav-link" href="{{ url('/') }}"> {{__('home')}} <span
                                         class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/about-us') }}"> About</a>
+                                <a class="nav-link" href="{{ url('/about-us') }}"> {{__('about')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/products') }}">Products</a>
+                                <a class="nav-link" href="{{ url('/products') }}"> {{__('products')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/contact-us') }}">Contact us</a>
+                                <a class="nav-link" href="{{ url('/contact-us') }}">{{__('contact')}}</a>
                             </li>
                         </ul>
                         <div class="user_option">
@@ -148,10 +150,11 @@
                                                 {{ Str::limit($bn->subtitle, 100, '...') }}
                                             </p>
                                             <div class="btn-box">
-                                                <a href="" class="btn-1">
+                                                <a href="/products" class="btn-1">
                                                     {{ __('read_more') }}
                                                 </a>
-                                                <a href="{{App\Helper::orderWaButton('Produk di banner nomer '.$loop->iteration)}}" class="btn-2">
+                                                <a href="{{ App\Helper::orderWaButton('Produk di banner nomer ' . $loop->iteration) }}"
+                                                    class="btn-2">
                                                     {{ __('contact_us') }}
                                                 </a>
                                             </div>
@@ -159,7 +162,8 @@
                                     </div>
                                     <div class="col-md-6 img-container">
                                         <div class="img-box">
-                                            <img src="{{ $bn->image }}" alt="{{ $bn->title }}">
+                                            <img src="{{ App\Helper::imageUrl($bn->image) }}"
+                                                alt="{{ $bn->title }}">
                                         </div>
                                     </div>
                                 </div>
@@ -251,7 +255,8 @@
                                     @foreach ($product5 as $ii => $p)
                                         <div class="box b-{{ $ii }}">
                                             <div class="img-box">
-                                                <img src="{{ $p->image }}" alt="{{ $p->name }}" class="img img-fluid img-thumbnail">
+                                                <img src="{{ App\Helper::imageUrl($p->image) }}"
+                                                    alt="{{ $p->name }}" class="img img-fluid img-thumbnail">
                                             </div>
                                         </div>
                                     @endforeach
@@ -299,7 +304,7 @@
                                 </div>
                             @endif
                             <div class="img-box">
-                                <img src="{{ $product->image }}" alt="">
+                                <img src="{{ App\Helper::imageUrl($product->image) }}" alt="">
                             </div>
                             <div class="detail-box">
                                 <h6 class="price">
@@ -335,16 +340,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                  @if(session('success'))
-                    <div class="alert alert-success">
-                        {{session('success')}}
-                    </div>
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
                     @endif
 
                     <form action="/contact" method="post">
-                      @csrf
+                        @csrf
                         <div>
-                            <input type="text" placeholder="Name" name="name"/>
+                            <input type="text" placeholder="Name" name="name" />
                         </div>
                         <div>
                             <input type="email" placeholder="Email" name="email" />
@@ -468,22 +473,26 @@
                             Social Media
 
                         </h5>
-                        @foreach($socialmedia as $social)
-                        <li>
-                          @if($social->type == 'facebook')
-                           <a href="{{$social->url}}" target="_blank" class="link text-primary"><x-fab-facebook style="width:20"/> Facebook</a>
-                          
-                          @elseif($social->type == 'instagram')
-                            <a href="{{$social->url}}" target="_blank" class="link text-danger"><x-fab-instagram style="width:20"/> Instagram</a>
-                          @elseif($social->type == 'twitter')
-                            <a href="{{$social->url}}" target="_blank" class="link text-info"><x-fab-twitter style="width:20"/> Twitter</a>
-                          @elseif($social->type == 'youtube')
-                            <a href="{{$social->url}}" target="_blank" class="link text-danger"><x-fab-youtube style="width:20"/> Youtube</a>
-                          @elseif($social->type == 'tiktok')
-                            <a href="{{$social->url}}" target="_blank" class="link text-white"><x-fab-tiktok style="width:20"/> Tiktok</a>
-                          @endif
-                        
-                        </li>
+                        @foreach ($socialmedia as $social)
+                            <li>
+                                @if ($social->type == 'facebook')
+                                    <a href="{{ $social->url }}" target="_blank"
+                                        class="link text-primary"><x-fab-facebook style="width:20" /> Facebook</a>
+                                @elseif($social->type == 'instagram')
+                                    <a href="{{ $social->url }}" target="_blank"
+                                        class="link text-danger"><x-fab-instagram style="width:20" /> Instagram</a>
+                                @elseif($social->type == 'twitter')
+                                    <a href="{{ $social->url }}" target="_blank"
+                                        class="link text-info"><x-fab-twitter style="width:20" /> Twitter</a>
+                                @elseif($social->type == 'youtube')
+                                    <a href="{{ $social->url }}" target="_blank"
+                                        class="link text-danger"><x-fab-youtube style="width:20" /> Youtube</a>
+                                @elseif($social->type == 'tiktok')
+                                    <a href="{{ $social->url }}" target="_blank"
+                                        class="link text-white"><x-fab-tiktok style="width:20" /> Tiktok</a>
+                                @endif
+
+                            </li>
                         @endforeach
                     </div>
                 </div>

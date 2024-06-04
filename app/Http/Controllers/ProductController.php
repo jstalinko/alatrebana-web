@@ -9,11 +9,18 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['products'] = \App\Models\Product::where('active', true)->get();
-        $data['title'] = 'All Products';
-        return view('products' , $data);
+        $id = $request->get('category');
+        if ($id) {
+            $data['products'] = \App\Models\Product::where('category_id', $id)->where('active', true)->get();
+            $data['title'] =  "Kategori " . \App\Models\Category::find($id)->name;
+        } else {
+            $data['products'] = \App\Models\Product::where('active', true)->get();
+            $data['title'] = 'All Products';
+        }
+        $data['categories'] = \App\Models\Category::where('active', true)->get();
+        return view('products', $data);
     }
 
     /**
@@ -37,17 +44,18 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        if(session()->has('product_'.$id) == false){
-            session()->put('product_'.$id, true);
+        if (session()->has('product_' . $id) == false) {
+            session()->put('product_' . $id, true);
             $product = \App\Models\Product::where('slug', $id)->first();
             $product->views = $product->views + 1;
             $product->save();
         }
-      
+
         $data['product'] = \App\Models\Product::where('slug', $id)->first();
         $data['products'] = \App\Models\Product::where('category_id', $data['product']->category_id)->where('active', true)->limit(4)->get();
         $data['title'] = $data['product']->name;
-        return view('product',$data);
+
+        return view('product', $data);
     }
 
     /**

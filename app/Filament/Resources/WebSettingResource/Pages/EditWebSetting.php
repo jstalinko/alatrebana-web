@@ -17,4 +17,5 @@ class EditWebSetting extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+    
 }

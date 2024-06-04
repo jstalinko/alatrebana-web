@@ -8,7 +8,14 @@
           {{__('all_products')}}
         </h2>
       </div>
+      <div class="container container-fluid">
+        <a href="?"> <span class="badge  @if(request()->get('category') == '') badge-success @else badge-info @endif p-2 m-1"><x-heroicon-s-tag style="width:20"/> {{__('all')}} </span> </a>
+        @foreach($categories as $cat)
+        <a href="{{url('/products?category='.$cat->id)}}">  <span class="badge @if(request()->get('category') == $cat->id) badge-success @else  badge-info @endif p-2 m-1"><x-heroicon-s-tag style="width:20"/> {{$cat->name}} </span> </a>&nbsp;
+        @endforeach
+      </div>
       <div class="brand_container layout_padding2">
+      
 
         @foreach($products as $pro)
         <div class="box">
@@ -19,7 +26,7 @@
               </h5>
             </div>
             <div class="img-box">
-              <img src="{{$pro->image}}" alt="">
+              <img src="{{App\Helper::imageUrl($pro->image)}}" alt="">
             </div>
             <div class="detail-box">
               <h6 class="price">

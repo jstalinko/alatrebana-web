@@ -47,17 +47,17 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav  ">
-              <li class="nav-item ">
-                <a class="nav-link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
+              <li class="nav-item @if(request()->is('/')) active @endif ">
+                <a class="nav-link" href="{{url('/')}}">{{__('home')}} <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{url('/about-us')}}"> About</a>
+              <li class="nav-item @if(request()->is('about-us')) active @endif">
+                <a class="nav-link" href="{{url('/about-us')}}"> {{__('about')}}</a>
               </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="{{url('/products')}}">Product</a>
+              <li class="nav-item @if(request()->is('products')) active @endif">
+                <a class="nav-link" href="{{url('/products')}}">{{__('products')}}</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{url('/contact-us')}}">Contact us</a>
+              <li class="nav-item @if(request()->is('contact-us')) active @endif">
+                <a class="nav-link" href="{{url('/contact-us')}}">{{__('contact')}}</a>
               </li>
             </ul>
             <div class="user_option">
